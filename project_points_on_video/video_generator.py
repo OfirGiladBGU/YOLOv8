@@ -4,7 +4,7 @@ import numpy as np
 
 def avi_video():
     # Set video parameters
-    width, height = 1200, 1200
+    width, height = 1024, 1280
     fps = 25
     duration_seconds = 60
     num_frames = int(fps * duration_seconds)
@@ -26,7 +26,7 @@ def avi_video():
 
 def mp4_video():
     # Set video parameters
-    width, height = 1200, 1200
+    width, height = 1024, 1280
     fps = 25
     duration_seconds = 60
     num_frames = int(fps * duration_seconds)

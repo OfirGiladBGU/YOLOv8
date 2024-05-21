@@ -41,8 +41,10 @@ def predict(video_path: str):
                 # Annotator Init
                 annotator = Annotator(frame, line_width=2)
 
-                for box, cls, track_id in zip(boxes, clss, track_ids):
-                    annotator.box_label(box, color=colors(int(cls), True), label=names[int(cls)])
+                for box, cls, track_id, conf in zip(boxes, clss, track_ids, confs):
+                    annotator.box_label(box,
+                                        color=colors(int(cls), True),
+                                        label=f"n: {names[int(cls)]} - c: {conf:.2f} - id: {track_id}")
 
                     # Store tracking history
                     track = track_history[track_id]
