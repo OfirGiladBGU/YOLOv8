@@ -7,7 +7,7 @@ import pandas as pd
 import math
 
 
-def read_csv_data(csv_path: str, chunk_size: int = 22):
+def read_csv_data(csv_path: str, chunk_size: int = 21):
     df = pd.read_csv(csv_path)
     num_points = len(df)
     num_chunks = num_points // chunk_size
