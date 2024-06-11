@@ -15,10 +15,10 @@ def read_csv_data(csv_path: str, chunk_size: int = 22):
 
     for i in range(num_chunks):
         chunk = df.iloc[i * chunk_size: (i + 1) * chunk_size]
-        mean_x = chunk['mean_x']
-        mean_y = chunk['mean_y']
-        std_x = chunk['std_x']
-        std_y = chunk['std_y']
+        mean_x = chunk['mean_x'].mean()
+        mean_y = chunk['mean_y'].mean()
+        std_x = chunk['std_x'].mean()
+        std_y = chunk['std_y'].mean()
 
         points_data.append({
             "mean_x": mean_x,
@@ -121,7 +121,7 @@ def main():
     video_path = "./output.mp4"
     csv1_path = "./output/asd_mean_std.csv"
     csv2_path = "./output/td_mean_std.csv"
-    output_path = "./tracking1.avi"
+    output_path = "./output_tracking.avi"
     ids_map = {0: "ASD", 1: "TD"}
     predict(video_path=video_path, csv1_path=csv1_path, csv2_path=csv2_path, output_path=output_path, ids_map=ids_map)
 
