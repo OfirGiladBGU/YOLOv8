@@ -1,0 +1,117 @@
+{
+  "id": "665d76dd7a543e9f823909ba",
+  "datasetId": "665d75bfe26c328556838330",
+  "url": "https://gate.dataloop.ai/api/v1/items/665d76dd7a543e9f823909ba",
+  "dataset": "https://gate.dataloop.ai/api/v1/datasets/665d75bfe26c328556838330",
+  "createdAt": "2024-06-03T07:55:05.266Z",
+  "dir": "/",
+  "filename": "/girls.mp4",
+  "type": "file",
+  "hidden": false,
+  "metadata": {
+    "fps": 25,
+    "startTime": 0.08,
+    "system": {
+      "duration": 83.8,
+      "encoding": "7bit",
+      "errors": [
+        {
+          "message": "Frames is not equal to FPS * (Duration - StartTime)",
+          "service": "VideoPreprocess",
+          "type": "origExpectedFrames",
+          "value": 2
+        }
+      ],
+      "ffmpeg": {
+        "avg_frame_rate": "25/1",
+        "bit_rate": "30221794",
+        "bits_per_raw_sample": "8",
+        "chroma_location": "left",
+        "closed_captions": 0,
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "codec_name": "h264",
+        "codec_tag": "0x31637661",
+        "codec_tag_string": "avc1",
+        "codec_type": "video",
+        "coded_height": 720,
+        "coded_width": 896,
+        "disposition": {
+          "attached_pic": 0,
+          "clean_effects": 0,
+          "comment": 0,
+          "default": 1,
+          "dub": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "karaoke": 0,
+          "lyrics": 0,
+          "original": 0,
+          "timed_thumbnails": 0,
+          "visual_impaired": 0
+        },
+        "duration": "83.800000",
+        "duration_ts": 1072640,
+        "has_b_frames": 2,
+        "height": 710,
+        "index": 0,
+        "is_avc": "true",
+        "level": 31,
+        "nal_length_size": "4",
+        "nb_frames": "2095",
+        "nb_read_frames": "2095",
+        "nb_read_packets": "2095",
+        "pix_fmt": "yuv420p",
+        "profile": "High",
+        "r_frame_rate": "25/1",
+        "refs": 4,
+        "start_pts": 1024,
+        "start_time": "0.080000",
+        "tags": {
+          "handler_name": "VideoHandler",
+          "language": "und",
+          "vendor_id": "[0][0][0][0]"
+        },
+        "time_base": "1/12800",
+        "width": 888
+      },
+      "fps": 25,
+      "height": 710,
+      "isBinary": true,
+      "mimetype": "video/mp4",
+      "modalities": [
+        {
+          "ref": "665d7a047a543e3598390c48",
+          "type": "replace",
+          "timestamp": "2024-06-03T08:08:36.410Z",
+          "name": "665d76dd7a543e9f823909ba.webm",
+          "refType": "id",
+          "stream": "https://gate.dataloop.ai/api/v1/items/665d7a047a543e3598390c48/stream"
+        }
+      ],
+      "nb_frames": 2095,
+      "nb_streams": 1,
+      "originalname": "girls.mp4",
+      "refs": [
+        {
+          "id": "665d77724ba3d9652d2f8048",
+          "type": "task"
+        },
+        {
+          "id": "665d77754ba3d90ec02f8049",
+          "type": "assignment"
+        }
+      ],
+      "size": 316602804,
+      "startTime": 0.08,
+      "taskStatusLog": [],
+      "width": 888
+    }
+  },
+  "name": "girls.mp4",
+  "creator": "hadarkra@post.bgu.ac.il",
+  "updatedAt": "2024-06-03T08:08:36.460Z",
+  "updatedBy": "bot.af8225e6-b57f-46f4-9c84-7a85c9e3b302@bot.dataloop.ai",
+  "stream": "https://gate.dataloop.ai/api/v1/items/665d76dd7a543e9f823909ba/stream",
+  "thumbnail": "https://gate.dataloop.ai/api/v1/items/665d76dd7a543e9f823909ba/thumbnail",
+  "annotated": true
+}
