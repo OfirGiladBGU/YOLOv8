@@ -46,4 +46,6 @@ def mp4_video():
     print(f"Video 'output.mp4' created successfully with {num_frames} black frames.")
 
 
-mp4_video()
+if __name__ == "__main__":
+    # avi_video()
+    mp4_video()
