@@ -100,7 +100,7 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                     cv2.polylines(frame, [track_points], isClosed=False, color=colors(int(track_id), True), thickness=2)
 
                     # STD Circle
-                    max_std = max(track_std[-1])
+                    max_std = int(max(track_std[-1]))
                     cv2.circle(frame, (track_mean[-1]), max_std, colors(int(track_id), True), 1)
 
                     # Add Text
