@@ -3,9 +3,13 @@ import pandas as pd
 import math
 import pathlib
 import csv
+import os
 
 
-def calculate_mean_and_std(csvs_dir: str, output_dir, ids_map):
+def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
+    asd_data = {"mean_x": [], "mean_y": [], "std_x": [], "std_y": []}
+    td_data = {"mean_x": [], "mean_y": [], "std_x": [], "std_y": []}
+
     csv_paths = list(pathlib.Path(csvs_dir).rglob("*.csv"))
     readers = []
     for csv_path in csv_paths:
@@ -14,27 +18,93 @@ def calculate_mean_and_std(csvs_dir: str, output_dir, ids_map):
         readers.append(reader)
 
     for line_idx in range(45000):
+        # Grab line i data
         line_idx_data = {
             "ASD": {"x": [], "y": []},
             "TD": {"x": [], "y": []}
         }
+
         for reader in readers:
             row = next(reader)
-            sign = ids_map[row[0]]
+            curr_child_id = ids_map[row[0]]
             if len(row) == 3:  # (Sign, X, Y)
-                x = int(row[1])
-                y = int(row[2])
-                line_idx_data[sign]["x"].append(x)
-                line_idx_data[sign]["y"].append(y)
+                x = int(row[1]) if row[1] != "NaN" else -1
+                y = int(row[2]) if row[2] != "NaN" else -1
+
+                # Validate x and y
+                if x != -1:
+                    line_idx_data[curr_child_id]["x"].append(x)
+                if y != -1:
+                    line_idx_data[curr_child_id]["y"].append(y)
+
             elif len(row) == 5:  # (Sign, X1, Y1, X2, Y2)
-                x1 = int(row[1])
-                y1 = int(row[2])
-                x2 = int(row[3])
-                y2 = int(row[4])
-                line_idx_data[sign]["x"].append(int(np.mean([x1, x2])))
-                line_idx_data[sign]["y"].append(int(np.mean([y1, y2])))
+                x1 = int(row[1]) if row[1] != "NaN" else -1
+                y1 = int(row[2]) if row[2] != "NaN" else -1
+                x2 = int(row[3]) if row[3] != "NaN" else -1
+                y2 = int(row[4]) if row[4] != "NaN" else -1
+
+                # Validate x and y
+                x_list = []
+                y_list = []
+                if x1 != -1:
+                    x_list.append(x1)
+                if y1 != -1:
+                    y_list.append(y1)
+                if x2 != -1:
+                    x_list.append(x2)
+                if y2 != -1:
+                    y_list.append(y2)
+
+                if len(x_list) > 0:
+                    mean_x = int(np.mean(x_list))
+                    line_idx_data[curr_child_id]["x"].append(mean_x)
+                if len(y_list) > 0:
+                    mean_y = int(np.mean(y_list))
+                    line_idx_data[curr_child_id]["y"].append(mean_y)
+
             else:
                 raise ValueError("Invalid row length")
+
+        # Calculate line i mean and std
+        for curr_child_id in list(line_idx_data.keys()):
+            x_list = line_idx_data[curr_child_id]["x"]
+            y_list = line_idx_data[curr_child_id]["y"]
+
+            # Validate x and y
+            if len(x_list) > 0:
+                mean_x = int(np.mean(x_list))
+                std_x = np.std(x_list)
+            else:
+                mean_x = "NAN"
+                std_x = "NAN"
+
+            if len(y_list) > 0:
+                mean_y = int(np.mean(y_list))
+                std_y = np.std(y_list)
+            else:
+                mean_y = "NAN"
+                std_y = "NAN"
+
+            # Append results
+            if curr_child_id == "ASD":
+                asd_data["mean_x"].append(mean_x)
+                asd_data["mean_y"].append(mean_y)
+                asd_data["std_x"].append(std_x)
+                asd_data["std_y"].append(std_y)
+            else:
+                td_data["mean_x"].append(mean_x)
+                td_data["mean_y"].append(mean_y)
+                td_data["std_x"].append(std_x)
+                td_data["std_y"].append(std_y)
+
+    # Save results
+    asd_df = pd.DataFrame(asd_data)
+    asd_filepath = os.path.join(output_dir, "asd_mean_std.csv")
+    asd_df.to_csv(asd_filepath, index=False)
+
+    td_df = pd.DataFrame(td_data)
+    td_filepath = os.path.join(output_dir, "td_mean_std.csv")
+    td_df.to_csv(td_filepath, index=False)
 
 
 def main():
