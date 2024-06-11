@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import math
 import pathlib
 import csv
 import os
@@ -18,6 +17,7 @@ def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
         readers.append(reader)
 
     for line_idx in range(45000):
+        print(f"Processing line: {line_idx}")
         # Grab line i data
         line_idx_data = {
             "ASD": {"x": [], "y": []},
