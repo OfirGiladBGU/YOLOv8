@@ -94,9 +94,6 @@ def predict(video_path: str, export_filepath: str):
     cv2.destroyAllWindows()
 
 
-# TODO: Add convert of annotations to csv file:
-# Frame Number, Track ID, Label, X1, Y1, X2, Y2, Confidence
-
 # TODO: Find model for the eye tracker (maybe 1D Conv)
 def main():
     video_path = os.path.join(os.getcwd(), "pexels-thirdman-5538262 (1080p).mp4")
