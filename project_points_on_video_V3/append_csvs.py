@@ -8,7 +8,7 @@ import os
 def append_csvs(csvs_dir: str, output_dir: str, ids_map: dict):
     asd_data = dict()
     td_data = dict()
-    width, height = (1024, 1280)
+    width, height = (1280, 1024)
 
     csv_paths = list(pathlib.Path(csvs_dir).rglob("*.csv"))
     readers = []

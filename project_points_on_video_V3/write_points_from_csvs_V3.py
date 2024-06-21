@@ -62,7 +62,6 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                 point_list_x = csv_points['list_x']
                 point_list_y = csv_points['list_y']
 
-                add_text = True
                 for point_x, point_y in zip(point_list_x, point_list_y):
                     if math.isnan(point_x) or math.isnan(point_y):
                         continue
@@ -73,7 +72,11 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                     point_data = [point_x, point_y]
 
                     # Center
-                    cv2.circle(frame, point_data, 5, colors(int(track_id), True), -1)
+                    # cv2.circle(frame, point_data, 5, colors(int(track_id), True), -1)
+
+                    frame[point_data[1], point_data[0], track_id] = 255
+                    frame[point_data[1], point_data[0], 2] = 0
+
 
             result.write(frame)
             if cv2.waitKey(1) & 0xFF == ord("q"):
