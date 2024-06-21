@@ -63,6 +63,7 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                     if math.isnan(point_x) or math.isnan(point_y):
                         continue
 
+                    # Frame shape (height, width, channels)
                     point_x = int(point_x * frame.shape[1])
                     point_y = int(point_y * frame.shape[0])
                     point_data = [point_x, point_y]
