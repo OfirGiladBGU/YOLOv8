@@ -1,5 +1,5 @@
 # TODO: Set parameters
-input_filepath = "./input/control_dinstein_girls.mat"
+input_filepath = "./input/data.mat"
 output_dir = "./output"
 
 ########################################################################################################################
@@ -31,8 +31,9 @@ if __name__ == '__main__':
 	if args.file:
 		data = scipy.io.loadmat(args.file)
 		for i in data:
-			if '__' not in i and 'readme' not in i:
-				np.savetxt((args.out+'/'+i+".csv"),data[i],fmt='%s',delimiter=',')
+			if i in ["control_dinstein_girls", "sub_dinstein_girls"]:
+				if '__' not in i and 'readme' not in i:
+					np.savetxt((args.out+'/'+i+".csv"),data[i],fmt='%s',delimiter=',')
 		print("Finished converting {}".format(args.file))
 	elif args.directory:
 		os.chdir(args.directory)
