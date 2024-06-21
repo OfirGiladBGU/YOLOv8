@@ -57,6 +57,10 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
             # Add Text
             cv2.putText(frame, ids_map[0], (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, colors(int(0), True), 2)
             cv2.putText(frame, ids_map[1], (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, colors(int(1), True), 2)
+            cv2.putText(frame, "COMMON", (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 1, colors(int(2), True), 2)
+
+            first_track = track_ids[0]
+            seen_points = set()
 
             for csv_points, track_id in zip(csv_points_list, track_ids):
                 point_list_x = csv_points['list_x']
@@ -71,11 +75,17 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                     point_y = int(point_y * frame.shape[0])
                     point_data = [point_x, point_y]
 
-                    # Center
-                    # cv2.circle(frame, point_data, 5, colors(int(track_id), True), -1)
+                    if track_ids != first_track and tuple(point_data) in seen_points:
+                        color_id = 2
+                    else:
+                        color_id = int(track_id)
+                        seen_points.add(tuple(point_data))
 
-                    frame[point_data[1], point_data[0], track_id] = 255
-                    frame[point_data[1], point_data[0], 2] = 0
+                    # Center
+                    cv2.circle(frame, point_data, 5, colors(color_id, True), -1)
+
+                    # frame[point_data[1], point_data[0], track_id] = 255
+                    # frame[point_data[1], point_data[0], 2] = 0
 
 
             result.write(frame)
