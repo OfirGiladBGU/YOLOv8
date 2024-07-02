@@ -8,6 +8,7 @@ import os
 def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
     asd_data = {"mean_x": [], "mean_y": [], "std_x": [], "std_y": []}
     td_data = {"mean_x": [], "mean_y": [], "std_x": [], "std_y": []}
+    width, height = (1280, 1024)
 
     csv_paths = list(pathlib.Path(csvs_dir).rglob("*.csv"))
     readers = []
@@ -33,9 +34,13 @@ def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
 
                 # Validate x and y
                 if x != -1:
-                    line_idx_data[curr_child_id]["x"].append(x)
+                    line_idx_data[curr_child_id]["x"].append(float(x) / float(width))
+                # else:
+                #     line_idx_data[curr_child_id]["x"].append(np.nan)
                 if y != -1:
-                    line_idx_data[curr_child_id]["y"].append(y)
+                    line_idx_data[curr_child_id]["y"].append(float(y) / float(height))
+                # else:
+                #     line_idx_data[curr_child_id]["y"].append(np.nan)
 
             elif len(row) == 5:  # (Sign, X1, Y1, X2, Y2)
                 x1 = int(row[1]) if row[1] != "NaN" else -1
@@ -57,10 +62,14 @@ def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
 
                 if len(x_list) > 0:
                     mean_x = int(np.mean(x_list))
-                    line_idx_data[curr_child_id]["x"].append(mean_x)
+                    line_idx_data[curr_child_id]["x"].append(float(mean_x) / float(width))
+                # else:
+                #     line_idx_data[curr_child_id]["x"].append(np.nan)
                 if len(y_list) > 0:
                     mean_y = int(np.mean(y_list))
-                    line_idx_data[curr_child_id]["y"].append(mean_y)
+                    line_idx_data[curr_child_id]["y"].append(float(mean_y) / float(height))
+                # else:
+                #     line_idx_data[curr_child_id]["y"].append(np.nan)
 
             else:
                 raise ValueError("Invalid row length")
@@ -72,18 +81,18 @@ def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
 
             # Validate x and y
             if len(x_list) > 0:
-                mean_x = int(np.mean(x_list))
+                mean_x = np.nanmean(x_list)
                 std_x = np.std(x_list)
             else:
-                mean_x = "NAN"
-                std_x = "NAN"
+                mean_x = "NaN"
+                std_x = "NaN"
 
             if len(y_list) > 0:
-                mean_y = int(np.mean(y_list))
+                mean_y = np.nanmean(y_list)
                 std_y = np.std(y_list)
             else:
-                mean_y = "NAN"
-                std_y = "NAN"
+                mean_y = "NaN"
+                std_y = "NaN"
 
             # Append results
             if curr_child_id == "ASD":

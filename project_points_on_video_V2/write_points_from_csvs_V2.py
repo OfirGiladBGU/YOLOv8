@@ -70,12 +70,14 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                 if math.isnan(point_mean_x):
                     point_mean_x = None
                 else:
-                    point_mean_x = int(point_mean_x)
+                    point_mean_x = int(point_mean_x * frame.shape[1])
+                    point_std_x = int(point_std_x * frame.shape[1])
 
                 if math.isnan(point_mean_y):
                     point_mean_y = None
                 else:
-                    point_mean_y = int(point_mean_y)
+                    point_mean_y = int(point_mean_y * frame.shape[0])
+                    point_std_y = int(point_std_y * frame.shape[0])
 
                 # Store tracking history
                 track_mean = track_mean_history[track_id]
@@ -100,7 +102,7 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
                     cv2.polylines(frame, [track_points], isClosed=False, color=colors(int(track_id), True), thickness=2)
 
                     # STD Circle
-                    max_std = int(max(track_std[-1]))
+                    max_std = int(np.mean(track_std[-1]))
                     cv2.circle(frame, (track_mean[-1]), max_std, colors(int(track_id), True), 1)
 
                     # Add Text
@@ -118,7 +120,7 @@ def predict(video_path: str, csv1_path: str, csv2_path: str, output_path: str, i
 
 
 def main():
-    video_path = "./output.mp4"
+    video_path = "./girls.mp4"
     csv1_path = "./output/asd_mean_std.csv"
     csv2_path = "./output/td_mean_std.csv"
     output_path = "./output_tracking.avi"
