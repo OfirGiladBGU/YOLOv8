@@ -42,10 +42,10 @@ def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
                 # else:
                 #     line_idx_data[curr_child_id]["y"].append(np.nan)
 
-            elif len(row) == 5:  # (Sign, X1, Y1, X2, Y2)
+            elif len(row) == 5:  # (Sign, X1, X2, Y1, Y2)
                 x1 = int(row[1]) if row[1] != "NaN" else -1
-                y1 = int(row[2]) if row[2] != "NaN" else -1
-                x2 = int(row[3]) if row[3] != "NaN" else -1
+                x2 = int(row[2]) if row[2] != "NaN" else -1
+                y1 = int(row[3]) if row[3] != "NaN" else -1
                 y2 = int(row[4]) if row[4] != "NaN" else -1
 
                 # Validate x and y
@@ -53,10 +53,10 @@ def calculate_mean_and_std(csvs_dir: str, output_dir: str, ids_map: dict):
                 y_list = []
                 if x1 != -1:
                     x_list.append(x1)
-                if y1 != -1:
-                    y_list.append(y1)
                 if x2 != -1:
                     x_list.append(x2)
+                if y1 != -1:
+                    y_list.append(y1)
                 if y2 != -1:
                     y_list.append(y2)
 
