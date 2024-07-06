@@ -117,6 +117,8 @@ def main():
     csvs_dir = "./subjects csv"
     output_dir = "./output"
     ids_map = {"1": "ASD", "0": "TD"}
+
+    os.makedirs(output_dir, exist_ok=True)
     append_csvs(csvs_dir=csvs_dir, output_dir=output_dir, ids_map=ids_map)
 
 
